@@ -1,0 +1,64 @@
+form {
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid #f1f1f1;
+    background-color: azure;
+    width: 80%;
+}
+
+.container {
+    padding: 20px;
+}
+
+
+.outer_container {
+    margin: auto;
+    width: 60%;
+}
+
+
+label {
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 100px;
+    text-align: right;
+}
+
+
+
+input {
+    display: inline-block;
+    float: left;
+}
+
+.fields {
+    width: 300px;
+    padding: 10px 20px;
+    margin-left: 50px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    vertical-align: bottom
+}
+
+.form-field-no-caption {
+    margin-left: 150px;
+    padding-left: 0.5em;
+}
+
+
+
+button {
+    background-color: dodgerblue;
+    color: white;
+    padding: 10px 20px;
+    margin-left: 50px;
+    border: none;
+    cursor: pointer;
+    width: 300px;
+}
+
+.container {
+    padding: 20px;
+}

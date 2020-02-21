@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Use the 'title' property to render a page title  -->
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="css/loginstyle.css" />
+    <link rel="stylesheet" type="text/css" href="css/display.css" />
+
+</head>
+<body>
+  	<!-- Display flash messages  -->
+	<% for(var i in badmessage) { %>
+	   <div class="flash"><%= badmessage[i] %></div>
+	<% } %>
+
+	<!-- Render the signup form  -->
+    <form action="/signup" method="post">
+        <div class="outer_container">
+            <h2> Sign Up as student</h2>
+
+            <div class="container">
+                <label>First Name:</label>
+                <input type="text" class ="fields" name="firstName" />
+            </div>
+            <div class="container">
+                <label>Last Name:</label>
+                <input type="text" class ="fields" name="lastName" />
+            </div>
+            <div class="container">
+                <label>Email:</label>
+                <input type="text" class ="fields" name="email" />
+            </div>
+            <div class="container">
+                <label>Username:</label>
+                <input type="text" class ="fields" name="username" />
+            </div>
+            <div class="container">
+                <label>Password:</label>
+                <input type="password" class ="fields" name="password" />
+            </div>
+            <div class="container">
+                <button type="submit" class="form-field-no-caption">Sign Up</button>
+            </div>
+        </div>
+    </form>
+    
+</body>
+</html>

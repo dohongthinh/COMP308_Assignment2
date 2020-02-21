@@ -1,0 +1,2 @@
+C:\Users\Huy Hoang\Desktop\Sixth sem\COMP308\assignment_2\assignment_2\obj\Debug\assignment_2.njsprojAssemblyReference.cache
+C:\Users\Huy Hoang\Desktop\Sixth sem\COMP308\assignment_2\assignment_2\bin\Microsoft.NodejsTools.WebRole.dll

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title><%= title %> </title>
+    <link rel="stylesheet" type="text/css" href="css/display.css" />
+
+</head>
+<body>
+    <!-- Load the static image file  -->
+    <img src="img/logo.png" alt="Logo">
+    <h2> List of Student</h2>
+    <table class="center">
+        <tr>
+            <td>
+                <div>
+                    <label>First Name</label>
+                </div>
+
+            </td>
+            <td>
+
+                <div>
+                    <label>Last Name</label>
+
+                </div>
+
+            </td>
+            <td>
+                <div>
+                    <label>Email</label>
+                </div>
+            </td>
+       
+
+
+        <% aStudent.forEach(function(student){ %>
+
+        <tr>
+            <td>
+                <div>
+
+                    <input type="text" name="firstname" value="<%= student.firstName %>" />
+                </div>
+
+            </td>
+            <td>
+                <div>
+                    <input type="text" name="lastname" value="<%= student.lastName %>" />
+                </div>
+
+            </td>
+            <td>
+                <div>
+                    <input type="text" name="email" value="<%= student.email %>" />
+                </div>
+            </td>
+         
+            
+
+        </tr>
+
+        <% })%>
+
+    </table>
+
+    <a href="http://localhost:3000"> Main Page</a>
+
+</body>
+</html>
