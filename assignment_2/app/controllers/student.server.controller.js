@@ -55,6 +55,16 @@ exports.renderSignup = function (req, res, next) {
 exports.signup = function (req, res, next) {
 	// Create a new instance of the 'User' Mongoose model
 	const student = new Student(req.body);
+	//store data in session
+	var email = req.body.email;
+	var firstName = req.body.firstName;
+	var lastName = req.body.lastName;
+
+	var session = req.session;
+
+	session.email = email;
+	session.firstName = firstName;
+	session.lastName = lastName;
 
 	// Use the 'User' instance's 'save' method to save a new user document
 	student.save((err) => {
@@ -70,27 +80,52 @@ exports.signup = function (req, res, next) {
 };
 
 exports.display = function (req, res) {
-	req.student = req.body;
-	var email = req.body.email;
+	var session = req.session;
+	req.student = session;
+	var email = session.email;
+	
+	console.log(session.email);
 	console.log(email);
 	// Use the 'User' static 'find' method to retrieve the list of users
 	Student.findOne({
 		email: email
-	}, (err, aStudent) => {
+	}, (err, student) => {
 		if (err) {
 			// Call the next middleware with an error message
 			return next(err);
 		} else {
-			req.aStudent = aStudent;
+			student = req.student;
 			// Use the 'response' object to send a JSON response
 			res.render('students', {
 				title: 'List A Student',
-				aStudent: aStudent
+				student: student
 			});
 		}
 	});
 };
 
+exports.commentsByStudent = function (req, res, next) {
+	var email = req.session.email;
+	//find the student then its comments using Promise mechanism of Mongoose
+	Student.findOne({ email: email }, (err, student) => {
+			if (err) { return getErrorMessage(err); }
+			//
+			req.id = student._id;
+			console.log(req.id);
+		}).then(function () {
+			//find the posts from this author
+			Comment.
+				find({
+					student: req.id
+				}, (err, comments) => {
+					if (err) { return getErrorMessage(err); }
+					//res.json(comments);
+					res.render('comments', {
+						comments: comments, email: email
+					});
+				});
+		});
+};
 
 
 
