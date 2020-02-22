@@ -49,7 +49,7 @@ module.exports = function () {
 
 	// Load the routing files
 	require('../app/routes/comment.server.routes.js')(app);
-	require('../app/routes/student.server.routes')(app);
+	require('../app/routes/student.server.routes.js')(app);
 
 	// Configure static file serving
 	app.use(express.static('./public'));

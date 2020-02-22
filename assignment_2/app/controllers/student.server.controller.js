@@ -1,5 +1,4 @@
 const Student = require('mongoose').model('Student');
-
 // Create a new error handling controller method
 const getErrorMessage = function (err) {
 	// Define the error message variable
@@ -59,13 +58,14 @@ exports.signup = function (req, res, next) {
 	var email = req.body.email;
 	var firstName = req.body.firstName;
 	var lastName = req.body.lastName;
+	var password = req.body.password;
 
 	var session = req.session;
 
 	session.email = email;
 	session.firstName = firstName;
 	session.lastName = lastName;
-
+	session.password = password;
 	// Use the 'User' instance's 'save' method to save a new user document
 	student.save((err) => {
 		if (err) {
@@ -79,14 +79,57 @@ exports.signup = function (req, res, next) {
 	});
 };
 
+// Create a new controller method that renders the signin page
+exports.renderSignin = function (req, res, next) {
+	// If user is not connected render the signin page, otherwise redirect the user back to the main application page
+	if (!req.user) {
+		// Use the 'response' object to render the signin page
+		res.render('signin', {
+			// Set the page title variable
+			title: 'Sign-in Form',
+			// Set the flash message variable
+			messages: req.flash('error') || req.flash('info')
+		});
+	} else {
+		return res.redirect('/student');
+	}
+};
+// signin
+exports.signin = function (req, res, next) {
+	// Create a new instance of the 'User' Mongoose model
+	var email = req.body.email;
+	var password = req.body.password;
+
+	var session = req.session;
+
+	session.email = email;
+	session.password = password;
+
+	req.student = session;
+	Student.findOne({ email: email, password:password }, (err, student) => {
+		if (err) {
+			return next(err);
+		} else {
+			if (student) {
+				req.firstName = student.firstName;
+				req.lastName = student.lastName;
+				res.render('students', {
+					title: 'List A Student',
+					student: student
+				});
+			} else {
+				return res.redirect('/student');
+			}
+		}
+	});
+};
+
+//display after signup or signin
 exports.display = function (req, res) {
 	var session = req.session;
 	req.student = session;
 	var email = session.email;
-	
-	console.log(session.email);
-	console.log(email);
-	// Use the 'User' static 'find' method to retrieve the list of users
+	//Use the 'User' static 'find' method to retrieve the list of users
 	Student.findOne({
 		email: email
 	}, (err, student) => {
@@ -95,6 +138,8 @@ exports.display = function (req, res) {
 			return next(err);
 		} else {
 			student = req.student;
+			req.firstName = student.firstName;
+			req.lastName = student.lastName;
 			// Use the 'response' object to send a JSON response
 			res.render('students', {
 				title: 'List A Student',
@@ -104,28 +149,6 @@ exports.display = function (req, res) {
 	});
 };
 
-exports.commentsByStudent = function (req, res, next) {
-	var email = req.session.email;
-	//find the student then its comments using Promise mechanism of Mongoose
-	Student.findOne({ email: email }, (err, student) => {
-			if (err) { return getErrorMessage(err); }
-			//
-			req.id = student._id;
-			console.log(req.id);
-		}).then(function () {
-			//find the posts from this author
-			Comment.
-				find({
-					student: req.id
-				}, (err, comments) => {
-					if (err) { return getErrorMessage(err); }
-					//res.json(comments);
-					res.render('comments', {
-						comments: comments, email: email
-					});
-				});
-		});
-};
 
 
 
