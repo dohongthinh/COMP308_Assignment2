@@ -1,31 +1,5 @@
 const Student = require('mongoose').model('Student');
-// Create a new error handling controller method
-const getErrorMessage = function (err) {
-	// Define the error message variable
-	var message = '';
 
-	// If an internal MongoDB error occurs get the error message
-	if (err.code) {
-		switch (err.code) {
-			// If a unique index error occurs set the message error
-			case 11000:
-			case 11001:
-				message = 'Username already exists';
-				break;
-			// If a general error occurs set the message error
-			default:
-				message = 'Something went wrong';
-		}
-	} else {
-		// Grab the first error message from a list of possible errors
-		for (const errName in err.errors) {
-			if (err.errors[errName].message) message = err.errors[errName].message;
-		}
-	}
-
-	// Return the message error
-	return message;
-};
 
 exports.render = function (req, res) {
 	// Use the 'response' object to render the 'index' view with a 'title' and 'userFullName' properties
@@ -53,36 +27,49 @@ exports.renderSignup = function (req, res, next) {
 // Create a new controller method that creates new 'regular' users
 exports.signup = function (req, res, next) {
 	// Create a new instance of the 'User' Mongoose model
-	const student = new Student(req.body);
+	
 	//store data in session
 	var email = req.body.email;
-	var firstName = req.body.firstName;
-	var lastName = req.body.lastName;
-	var password = req.body.password;
-	var favouriteSubject = req.body.favouriteSubject;
-	var technicalSkill = req.body.technicalSkill;
-
-	var session = req.session;
-
-	session.email = email;
-	session.firstName = firstName;
-	session.lastName = lastName;
-	session.password = password;
-	session.favouriteSubject = favouriteSubject;
-	session.technicalSkill = technicalSkill;
-	// Use the 'User' instance's 'save' method to save a new user document
-	student.save((err) => {
+	Student.findOne({ email: email }, (err, student) => {
 		if (err) {
-			// Call the next middleware with an error message
 			return next(err);
 		} else {
-			// Use the 'response' object to send a JSON response
-			//res.json(student);
-			var Id = student._id;
-			session.Id = Id;
-			res.redirect('/submit_comments');
+			if (student) {
+				return res.redirect('/signup');
+			}
+			else {
+				const student = new Student(req.body);
+				student.email = email;
+				student.firstName = req.body.firstName;
+				student.lastName = req.body.lastName;
+				student.password = req.body.password;
+				student.favouriteSubject = req.body.favouriteSubject;
+				student.technicalSkill = req.body.technicalSkill;
+
+				var session = req.session;
+
+				session.email = student.email;
+				session.firstName = student.firstName;
+				session.lastName = student.lastName;
+				session.password = student.password;
+				session.favouriteSubject = student.favouriteSubject;
+				session.technicalSkill = student.technicalSkill;
+				// Use the 'User' instance's 'save' method to save a new user document
+				student.save((err) => {
+					if (err) {
+						// Call the next middleware with an error message
+						return next(err);
+					} else {
+						// Use the 'response' object to send a JSON response
+						//res.json(student);
+						var _id = student._id;
+						session._id = _id;
+						res.redirect('/submit_comments');
+					}
+				});
+			}
 		}
-	});
+	});	
 };
 
 // Create a new controller method that renders the signin page
@@ -122,7 +109,7 @@ exports.signin = function (req, res, next) {
 					student: student
 				});
 			} else {
-				return res.redirect('/submit_comments');
+				return res.redirect('/signin');
 			}
 		}
 	});

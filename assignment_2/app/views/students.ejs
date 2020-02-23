@@ -5,87 +5,33 @@
     <meta charset="utf-8" />
     <title><%= title %> </title>
     <link rel="stylesheet" type="text/css" href="css/display.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 </head>
 <body>
     <h2> List of Student</h2>
-    <table class="center">
-        <tr>
-            <td>
-                <div>
-                    <label>First Name</label>
-                </div>
-
-            </td>
-            <td>
-
-                <div>
-                    <label>Last Name</label>
-
-                </div>
-
-            </td>
-            <td>
-                <div>
-                    <label>Email</label>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <label>Favourite Subject</label>
-                </div>
-
-            </td>
-            <td>
-                <div>
-
-                    <label>Technical Skills </label>
-                </div>
-
-            </td>
-
-        </tr>
-
-
-        <% students.forEach(function(student){ %>
-
-        <tr>
-            <td>
-                <div>
-
-                    <input type="text" name="firstname" value="<%= student.firstName %>" />
-                </div>
-
-            </td>
-            <td>
-                <div>
-                    <input type="text" name="lastname" value="<%= student.lastName %>" />
-                </div>
-
-            </td>
-            <td>
-                <div>
-                    <input type="text" name="email" value="<%= student.email %>" />
-                </div>
-            </td>
-            <td>
-                <div>
-                    <input type="text" name="username" value="<%= student.favouriteSubject %>" />
-                </div>
-            </td>
-            <td>
-                <div>
-                    <input type="text" name="website" value="<%= student.technicalSkill %>" />
-                </div>
-            </td>
-            
-            
-        </tr>
-
-        <% })%>
-
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Favourite Subject</th>
+                <th scope="col">Technical Skills</th>
+            </tr>
+        </thead>
+        <tbody>
+         <% students.forEach(function(student){ %>
+            <tr>
+                    <td><%= student.firstName %></td>
+                    <td><%= student.lastName %></td>
+                    <td><%= student.email %></td>
+                    <td><%= student.favouriteSubject %></td>
+                    <td><%= student.technicalSkill %></td>
+               </tr>
+              <% })%> 
+        </tbody>
     </table>
-
     <a href="http://localhost:1337"> Main Page</a>
 
 </body>

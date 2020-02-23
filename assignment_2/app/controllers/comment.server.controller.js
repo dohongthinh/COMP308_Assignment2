@@ -1,6 +1,6 @@
-
 const Comment = require('mongoose').model('Comment');
 const Student = require('mongoose').model('Student');
+
 exports.addComment = function (req, res, next) {
 	// Create a new instance of the 'Comment' Mongoose model
 	var session = req.session;

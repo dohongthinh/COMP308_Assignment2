@@ -5,59 +5,30 @@
     <meta charset="utf-8" />
     <title>Comment by a student</title>
     <link rel="stylesheet" type="text/css" href="css/display.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 
 </head>
 <body>
-    <h2> Comment by <%= email %></h2>
-    <table class="center">
-        <tr>
-            <td>
-                <div>
-                    <label>Course code</label>
-                </div>
-
-            </td>
-            <td>
-
-                <div>
-                    <label>Course name</label>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <label>Comment</label>
-                </div>
-            </td>
-        </tr>
-
-
-        <% comments.forEach(function(comment){ %>
-
-        <tr>
-            <td>
-                <div>
-
-                    <input type="text" name="courseCode" value="<%= comment.courseCode %>" />
-                </div>
-
-            </td>
-            <td>
-                <div>
-                    <input type="text" name="courseName" value="<%= comment.courseName %>" />
-                </div>
-
-            </td>
-            <td>
-                <div>
-                    <input type="text" name="comment" value="<%= comment.comment %>" />
-                </div>
-            </td>          
-        </tr>
-
-        <% })%>
-
+    <h2> Comment by <%= email %></h2>=
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Course code</th>
+                <th scope="col">Course name</th>
+                <th scope="col">Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+         <% comments.forEach(function(comment){ %>
+            <tr>
+                    <td><%= comment.courseCode %></td>
+                    <td><%= comment.courseName %></td>
+                    <td><%= comment.comment %></td>
+               </tr>
+              <% })%> 
+        </tbody>
     </table>
-
     <a href="http://localhost:1337"> Main Page</a>
 
 </body>

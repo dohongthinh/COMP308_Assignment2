@@ -5,37 +5,38 @@
     <meta charset="utf-8" />
     <title><%= title %> </title>
     <link rel="stylesheet" type="text/css" href="css/display.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 </head>
 <body>
     <h2> Hello <%= student.email %></h2>
    <!-- Render the signup form  -->
     <form action="/submit_comments" method="post">
-        <div class="outer_container">
+        <div class="form-group">
             <h2> Submit a comment</h2>
 
-            <div class="container">
+            <div class="form-group">
                 <label>Course code:</label>
-                <input type="text" class ="fields" name="courseCode" />
+                <input type="text" class="form-control form-control-lg" name="courseCode" />
             </div>
-            <div class="container">
+            <div class="form-group">
                 <label>Course name:</label>
-                <input type="text" class ="fields" name="courseName" />
+                <input type="text" class="form-control form-control-lg" name="courseName" />
             </div>
-            <div class="container">
+            <div class="form-group">
                 <label>Program:</label>
-                <input type="text" class ="fields" name="program" />
+                <input type="text" class="form-control form-control-lg" name="program" />
             </div>
-            <div class="container">
+            <div class="form-group">
                 <label>Semester:</label>
-                <input type="text" class ="fields" name="semester" />
+                <input type="text" class="form-control form-control-lg" name="semester" />
             </div>
-            <div class="container">
+            <div class="form-group">
                 <label>Comment:</label>
-                <input type="text" class ="fields" name="comment" />
+                <input type="text" class="form-control form-control-lg" name="comment" />
             </div>
-            <div class="container">
-                <button type="submit" class="form-field-no-caption">Submit comment</button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit comment</button>
             </div>
         </div>
     </form>
