@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Comment by a student</title>
+    <link rel="stylesheet" type="text/css" href="css/display.css" />
+
+</head>
+<body>
+    <h2> Comment by <%= email %></h2>
+    <table class="center">
+        <tr>
+            <td>
+                <div>
+                    <label>Course code</label>
+                </div>
+
+            </td>
+            <td>
+
+                <div>
+                    <label>Course name</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label>Comment</label>
+                </div>
+            </td>
+        </tr>
+
+
+        <% comments.forEach(function(comment){ %>
+
+        <tr>
+            <td>
+                <div>
+
+                    <input type="text" name="courseCode" value="<%= comment.courseCode %>" />
+                </div>
+
+            </td>
+            <td>
+                <div>
+                    <input type="text" name="courseName" value="<%= comment.courseName %>" />
+                </div>
+
+            </td>
+            <td>
+                <div>
+                    <input type="text" name="comment" value="<%= comment.comment %>" />
+                </div>
+            </td>          
+        </tr>
+
+        <% })%>
+
+    </table>
+
+    <a href="http://localhost:1337"> Main Page</a>
+
+</body>
+</html>

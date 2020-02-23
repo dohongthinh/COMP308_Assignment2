@@ -5,4 +5,6 @@ const comment = require('../controllers/comment.server.controller');
 module.exports = function (app) {
 	app.route('/submit_comments')
 		.post(comment.addComment);
+	app.route('/comments')
+		.get(comment.commentsByStudent);
 };

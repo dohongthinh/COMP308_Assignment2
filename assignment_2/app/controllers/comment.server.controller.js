@@ -1,8 +1,8 @@
 
 const Comment = require('mongoose').model('Comment');
-
+const Student = require('mongoose').model('Student');
 exports.addComment = function (req, res, next) {
-	// Create a new instance of the 'User' Mongoose model
+	// Create a new instance of the 'Comment' Mongoose model
 	var session = req.session;
 	const newComment = new Comment(req.body);
 
@@ -20,20 +20,18 @@ exports.addComment = function (req, res, next) {
 	session.semester = semester;
 	session.date = date;
 	session.comment = comment;
-	// Use the 'User' instance's 'save' method to save a new user document
+
 	newComment.save((err) => {
 		if (err) {
-			// Call the next middleware with an error message
 			return next(err);
 		} else {
-			// Use the 'response' object to send a JSON response
-			//res.json(student);
 			res.redirect('/thankyou');
 		}
 	});
 };
 
 exports.commentsByStudent = function (req, res, next) {
+	
 	var email = req.session.email;
 	//find the student then its comments using Promise mechanism of Mongoose
 	Student.findOne({ email: email }, (err, student) => {

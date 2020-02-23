@@ -160,7 +160,7 @@ exports.thankyou = function (req, res) {
 	if (session.email) {
 		res.write('<h1>Thank you ' + session.email + '</h1><br>');
 		res.write('<h4>Please go back to main menu to view your comments</h4><br>');
-		res.end('<a href=' + '/logout' + '>Logout</a>');
+		res.end('<a href=' + 'http://localhost:1337' + '>Main Page</a>');
 	}
 	else {
 		res.write('<h1>Please login first.</h1>');
