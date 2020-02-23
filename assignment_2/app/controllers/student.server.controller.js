@@ -169,5 +169,23 @@ exports.thankyou = function (req, res) {
 
 };
 
+exports.viewAll = function (req, res, next) {
+	// Use the 'User' static 'find' method to retrieve the list of users
+	Student.find({}, (err, students) => {
+		if (err) {
+			// Call the next middleware with an error message
+			return next(err);
+		} else {
+			// Use the 'response' object to send a JSON response
+			res.render('students', {
+				title: 'List All Students',
+				students: students
+			});
+		}
+	});
+};
+
+
+
 
 

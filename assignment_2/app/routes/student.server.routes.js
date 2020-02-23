@@ -23,6 +23,9 @@ module.exports = function (app) {
 	app.route('/thankyou')
 		.get(student.thankyou);
 
+	app.route('/viewAll')
+		.get(student.viewAll);
+
 	//// Set up the 'signout' route
 	//app.get('/signout', users.signout);
 };
