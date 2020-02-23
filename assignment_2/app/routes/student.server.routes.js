@@ -11,13 +11,17 @@ module.exports = function (app) {
 		.get(student.renderSignup)
 		.post(student.signup);
 
-	app.route('/student')
-		.get(student.display);
-
 	// Set up the 'signin' routes 
 	app.route('/signin')
 		.get(student.renderSignin)
 		.post(student.signin);
+
+	//display comment form
+	app.route('/submit_comments')
+		.get(student.display);
+
+	app.route('/thankyou')
+		.get(student.thankyou);
 
 	//// Set up the 'signout' route
 	//app.get('/signout', users.signout);

@@ -9,55 +9,36 @@
 </head>
 <body>
     <h2> Hello <%= student.email %></h2>
-    <table class="center">
-        <tr>
-            <td>
-                <div>
-                    <label>First Name</label>
-                </div>
+   <!-- Render the signup form  -->
+    <form action="/comments" method="post">
+        <div class="outer_container">
+            <h2> Submit a comment</h2>
 
-            </td>
-            <td>
-
-                <div>
-                    <label>Last Name</label>
-
-                </div>
-
-            </td>
-            <td>
-                <div>
-                    <label>Email</label>
-                </div>
-            </td>
-       
-
-        <tr>
-            <td>
-                <div>
-
-                    <input type="text" name="firstname" value="<%= student.firstName %>" />
-                </div>
-
-            </td>
-            <td>
-                <div>
-                    <input type="text" name="lastname" value="<%= student.lastName %>" />
-                </div>
-
-            </td>
-            <td>
-                <div>
-                    <input type="text" name="email" value="<%= student.email %>" />
-                </div>
-            </td>
-         
-            
-
-        </tr>
-
-
-    </table>
+            <div class="container">
+                <label>Course code:</label>
+                <input type="text" class ="fields" name="courseCode" />
+            </div>
+            <div class="container">
+                <label>Course name:</label>
+                <input type="text" class ="fields" name="courseName" />
+            </div>
+            <div class="container">
+                <label>Program:</label>
+                <input type="text" class ="fields" name="program" />
+            </div>
+            <div class="container">
+                <label>Semester:</label>
+                <input type="text" class ="fields" name="semester" />
+            </div>
+            <div class="container">
+                <label>Comment:</label>
+                <input type="text" class ="fields" name="comment" />
+            </div>
+            <div class="container">
+                <button type="submit" class="form-field-no-caption">Submit comment</button>
+            </div>
+        </div>
+    </form>
 
     <a href="http://localhost:3000"> Main Page</a>
 

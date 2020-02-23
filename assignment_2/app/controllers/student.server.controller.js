@@ -46,7 +46,7 @@ exports.renderSignup = function (req, res, next) {
 			badmessage: req.flash('error') //passes the error stored in flash
 		});
 	} else {
-		return res.redirect('/student');
+		return res.redirect('/');
 	}
 };
 
@@ -59,6 +59,8 @@ exports.signup = function (req, res, next) {
 	var firstName = req.body.firstName;
 	var lastName = req.body.lastName;
 	var password = req.body.password;
+	var favouriteSubject = req.body.favouriteSubject;
+	var technicalSkill = req.body.technicalSkill;
 
 	var session = req.session;
 
@@ -66,6 +68,8 @@ exports.signup = function (req, res, next) {
 	session.firstName = firstName;
 	session.lastName = lastName;
 	session.password = password;
+	session.favouriteSubject = favouriteSubject;
+	session.technicalSkill = technicalSkill;
 	// Use the 'User' instance's 'save' method to save a new user document
 	student.save((err) => {
 		if (err) {
@@ -74,7 +78,9 @@ exports.signup = function (req, res, next) {
 		} else {
 			// Use the 'response' object to send a JSON response
 			//res.json(student);
-			res.redirect('/student');
+			var Id = student._id;
+			session.Id = Id;
+			res.redirect('/submit_comments');
 		}
 	});
 };
@@ -91,21 +97,17 @@ exports.renderSignin = function (req, res, next) {
 			messages: req.flash('error') || req.flash('info')
 		});
 	} else {
-		return res.redirect('/student');
+		return res.redirect('/');
 	}
 };
 // signin
-exports.signin = function (req, res, next) {
-	// Create a new instance of the 'User' Mongoose model
+exports.signin = function (req, res, next) {	
 	var email = req.body.email;
 	var password = req.body.password;
-
 	var session = req.session;
-
 	session.email = email;
 	session.password = password;
-
-	req.student = session;
+	//req.student = session;
 	Student.findOne({ email: email, password:password }, (err, student) => {
 		if (err) {
 			return next(err);
@@ -113,12 +115,14 @@ exports.signin = function (req, res, next) {
 			if (student) {
 				req.firstName = student.firstName;
 				req.lastName = student.lastName;
-				res.render('students', {
+				var _id = student._id;
+				session._id = _id;
+				res.render('submit_comments', {
 					title: 'List A Student',
 					student: student
 				});
 			} else {
-				return res.redirect('/student');
+				return res.redirect('/submit_comments');
 			}
 		}
 	});
@@ -129,7 +133,7 @@ exports.display = function (req, res) {
 	var session = req.session;
 	req.student = session;
 	var email = session.email;
-	//Use the 'User' static 'find' method to retrieve the list of users
+
 	Student.findOne({
 		email: email
 	}, (err, student) => {
@@ -141,7 +145,7 @@ exports.display = function (req, res) {
 			req.firstName = student.firstName;
 			req.lastName = student.lastName;
 			// Use the 'response' object to send a JSON response
-			res.render('students', {
+			res.render('submit_comments', {
 				title: 'List A Student',
 				student: student
 			});
@@ -149,7 +153,21 @@ exports.display = function (req, res) {
 	});
 };
 
+exports.thankyou = function (req, res) {
+	//make a reference to the session object
+	var session = req.session;
+	//check if email is stored in session object
+	if (session.email) {
+		res.write('<h1>Thank you ' + session.email + '</h1><br>');
+		res.write('<h4>Please go back to main menu to view your comments</h4><br>');
+		res.end('<a href=' + '/logout' + '>Logout</a>');
+	}
+	else {
+		res.write('<h1>Please login first.</h1>');
+		res.end('<a href=' + '/' + '>Login</a>');
+	}
 
+};
 
 
 

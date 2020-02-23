@@ -24,7 +24,9 @@ const StudentSchema = new Schema({
             (password) => password.length >= 6,
             'Password Should Be Longer'
         ]
-    }
+    },
+    favouriteSubject: String,
+    technicalSkill:String
 
 });
 

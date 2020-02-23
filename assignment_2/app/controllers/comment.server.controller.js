@@ -1,4 +1,38 @@
 
+const Comment = require('mongoose').model('Comment');
+
+exports.addComment = function (req, res, next) {
+	// Create a new instance of the 'User' Mongoose model
+	var session = req.session;
+	const newComment = new Comment(req.body);
+
+	var courseCode = req.body.courseCode;
+	var courseName = req.body.courseName;
+	var program = req.body.program;
+	var semester = req.body.semester;
+	var comment = req.body.comment;
+	var date = req.body.date;
+	newComment.student = session._id;
+	//store data in session
+	session.courseCode = courseCode;
+	session.courseName = courseName;
+	session.program = program;
+	session.semester = semester;
+	session.date = date;
+	session.comment = comment;
+	// Use the 'User' instance's 'save' method to save a new user document
+	newComment.save((err) => {
+		if (err) {
+			// Call the next middleware with an error message
+			return next(err);
+		} else {
+			// Use the 'response' object to send a JSON response
+			//res.json(student);
+			res.redirect('/thankyou');
+		}
+	});
+};
+
 exports.commentsByStudent = function (req, res, next) {
 	var email = req.session.email;
 	//find the student then its comments using Promise mechanism of Mongoose
